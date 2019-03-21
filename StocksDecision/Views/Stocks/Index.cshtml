@@ -1,0 +1,49 @@
+﻿@model PagedList.IPagedList<StocksDecision.Models.Stock>
+@using PagedList.Mvc;
+  
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm())
+{
+    <p>
+        @Html.ActionLink("Back to list", "../StockMarkets/Index") |
+        Find by Symbol: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
+@if (Model != null)
+{
+        <table class="table">
+            <tr>
+                <th>Date</th>
+                <th>Symbol</th>
+                <th>Open</th>
+                <th>Close</th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                <td>@Html.DisplayFor(modelItem => item.Symbol)</td>
+                <td>@Html.DisplayFor(modelItem => item.Open)</td>
+                <td>@Html.DisplayFor(modelItem => item.Close)</td>
+                <td>
+
+                </td>
+            </tr>
+            }
+       </table>
+        <div id='Paging' style="text-align:center">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+            of @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { searchString = @ViewBag.Symbol, page }))
+        </div>
+}

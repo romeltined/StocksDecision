@@ -1,0 +1,47 @@
+﻿@model PagedList.IPagedList<StocksDecision.Models.Blog>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm())
+{
+    <p>
+        @Html.ActionLink("Create New", "Create") |
+        Find keywords: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
+@if (Model != null)
+{
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Message</th>
+            <th></th>
+            <th>Author</th>
+            <th>Date</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem => item.Message)</td>
+                <td>@Html.ActionLink("Comments", "Details", new { id = item.Id })</td>
+                <td>@Html.DisplayFor(modelItem => item.User)</td>
+                <td>@item.CreatedOn.ToShortDateString()</td>
+            </tr>
+        }
+    </table>
+    <div id='Paging' style="text-align:center">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { searchString = @ViewBag.Search, page }))
+    </div>
+}

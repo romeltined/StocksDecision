@@ -1,0 +1,49 @@
+﻿@model StocksDecision.Models.StockMarket
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>StockMarket</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Symbol)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Symbol)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuyTarget)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuyTarget)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SellTarget)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SellTarget)
+        </dd>
+
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

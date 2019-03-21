@@ -1,0 +1,19 @@
+﻿@model IEnumerable<StocksDecision.Models.StockMarket>
+
+<h2>Shop</h2>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-xs-6 col-md-3">
+            <a class="thumbnail">
+                <b>Symbol:</b> @item.Symbol
+                <b>Last Price:</b> @item.LastPrice
+            </a>
+
+        </div>
+
+
+    }
+    <p>@DateTime.Now</p>
+</div>

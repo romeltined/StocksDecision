@@ -1,0 +1,74 @@
+﻿@model StocksDecision.Models.StockMarket
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StockMarket</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Market)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Market)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Symbol)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Symbol)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuyTarget)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuyTarget)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuyDecision)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuyDecision)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SellTarget)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SellTarget)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SellDecision)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SellDecision)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,88 @@
+﻿@model IEnumerable<StocksDecision.Models.RegressionUnit>
+
+@{
+    ViewBag.Title = "Forecast";
+}
+
+<h2>Forecast</h2>
+
+@using (Html.BeginForm())
+{
+    <p>
+     Select date: <input type="datetime" id="datepicker" name="datepicker" value="@ViewBag.SelectedDate"> 
+       @*<input type="submit" value="Try" />*@ | Select model:
+        @Html.ActionLink("2w", "Forecast", new { model="2w", datepicker=ViewBag.SelectedDate }, new { id = "2w" }) | @Html.ActionLink("1mo", "Forecast", new { model = "1mo", datepicker = ViewBag.SelectedDate }, new { id = "1mo" })
+    </p>
+}
+
+<div class="col-md-12">
+    <table class="table table-hover table-condensed table-responsive">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Symbol)
+            </th>
+            <th>Current Value</th>
+            <th>Forecasted value on @ViewBag.SelectedDate using @ViewBag.SelectedModel model</th>
+            <th>%</th>
+        </tr>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                var rowformat= "success";
+                if (item.CurrentValue >= item.Value) { rowformat= "danger"; }
+                <tr class="@rowformat">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Symbol)
+                    </td>
+                    <td>@String.Format("{0:c}", item.CurrentValue)</td>
+                    <td>
+                        @String.Format("{0:c}", item.Value)
+                    </td>
+                    <td>@item.PercentDiff %</td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @*@Styles.Render("~/Content/themes/base/datepicker.css")*@
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('input[type=datetime]').datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+40",
+                onClose: function () {
+                    //validate($(this).val());
+                    //alert('memel');
+                    var thisdate = $(this).val();
+                    thisdate = encodeURIComponent(thisdate);
+                    $("#2w").attr("href", "/Statistics/Forecast?model=2w&amp&datepicker=" + thisdate);
+                    $("#1mo").attr("href", "/Statistics/Forecast?model=1mo&amp&datepicker=" + thisdate);
+                },
+            });
+
+
+            function validate(dateText) {
+                try {
+                    alert("You selected is : " + dateText);
+                } catch (e) {
+                    alert("invalid date");
+                };
+            }
+
+        });
+
+
+ 
+
+    </script>
+
+}

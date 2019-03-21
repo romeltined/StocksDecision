@@ -1,0 +1,93 @@
+﻿@model IEnumerable<StocksDecision.Models.StockMarket>
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<h2>Index</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Symbol)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            Today @*@Html.DisplayNameFor(model => model.LastPrice)*@
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BuyTarget)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BuyDecision)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SellTarget)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SellDecision)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        string buyColor = "";
+        string sellColor = "";
+        string stockChange = "success";
+        if (item.BuyDecision == "Buy")
+        {
+            buyColor = "success";
+        }
+        if (item.SellDecision == "Sell")
+        {
+            sellColor = "success";
+        }
+        if(item.LastPrice < item.PreviousPrice)
+        {
+            stockChange = "danger";
+        }
+
+        <tr>
+            <td>
+                @Html.ActionLink(item.Symbol, "../Stocks/FilterIndex", new { symbol = item.Symbol })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td class=@stockChange>
+                @String.Format("{0:c}", item.LastPrice)
+            </td>
+            <td>
+                @String.Format("{0:c}", item.CurrentValue)
+            </td>
+            <td>
+                @String.Format("{0:c}", item.BuyTarget)
+            </td>
+            <td class=@buyColor>
+                @Html.DisplayFor(modelItem => item.BuyDecision)
+            </td>
+            <td>
+                @String.Format("{0:c}", item.SellTarget)
+            </td>
+            <td class=@sellColor>
+                @Html.DisplayFor(modelItem => item.SellDecision)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })|
+                @Html.ActionLink("Data", "../Stocks/Index", new { searchString = item.Symbol })
+            </td>
+        </tr>
+    }
+
+</table>
+<p>@DateTime.Now</p>

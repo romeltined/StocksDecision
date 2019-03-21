@@ -1,0 +1,23 @@
+﻿@model StocksDecision.Models.Blog
+
+@{
+    ViewBag.Title = "Comments";
+}
+
+<div>
+    <table class="borderless" id="commentTable">
+        @if (Model.Comments.Count > 0)
+        {foreach (var item in Model.Comments.OrderByDescending(c => c.Id).ToList())
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.User): @Html.DisplayFor(modelItem => item.Message)</td>
+            </tr>
+        }
+        }
+        else
+        {
+            <tr><td></td></tr>
+        }
+    </table>
+</div>
+

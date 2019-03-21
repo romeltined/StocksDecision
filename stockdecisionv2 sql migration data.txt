@@ -1,0 +1,15 @@
+select * from stocksdecisionv2.StockMarkets;
+
+update stocksdecisionv2.StockMarkets
+set UserId='google-oauth2|106860617322045972881'
+where UserId = 'memel';
+
+
+insert into stocksdecisionv2.StockMarkets (symbol,quantity,buytarget, selltarget, userid)
+select symbol, ifnull(quantity,0) as quantity, ifnull(BuyTarget,0) as buytarget, ifnull(SellTarget,0) as selltarget, 'google-oauth2|112020669070855099342' as userid from stocksdecision.StockMarkets;
+
+
+select * from stocksdecisionv2.StockMarkets
+
+insert into stocksdecisionv2.Blogs (message, user, createdon)
+select message, user, createdon from stocksdecision.Blogs

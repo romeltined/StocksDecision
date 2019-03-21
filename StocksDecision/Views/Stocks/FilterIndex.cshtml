@@ -1,0 +1,23 @@
+﻿@model StocksDecision.Models.StockSymbol
+
+@{
+    ViewBag.Title = "Stock Market";
+}
+
+<h2>@ViewBag.Symbol</h2>
+
+<p>
+    @Html.ActionLink("Back to list", "../StockMarkets/Index") |
+    @Html.ActionLink("3m", "../Stocks/FilterIndex", new { symbol = ViewBag.Symbol, range = "3m" }) |
+    @Html.ActionLink("6m", "../Stocks/FilterIndex", new { symbol = ViewBag.Symbol, range = "6m" }) |
+    @Html.ActionLink("1yr", "../Stocks/FilterIndex", new { symbol = ViewBag.Symbol, range = "1yr" }) |
+
+    Today: @Model.LastPrice |
+    Yesterday: @Model.PreviousPrice
+</p>
+<div>
+    <img src="@Url.Action("LineChart","Stocks", new { symbol=ViewBag.Symbol, range=ViewBag.Range })" alt="SimpleChart" />
+</div>
+
+
+
